@@ -1,4 +1,5 @@
-.PHONY: run i f t  c branch
+
+.PHONY: run i f t  c
 
 # Run the projet
 run:
@@ -6,30 +7,21 @@ run:
 	
 # Install dev dependences
 i:
-	@poetry add --group dev pytest pip-audit isort mkdocs black prospector
+	@poetry add --group dev pytest isort mkdocs blue pylint python-dotenv
 	@pylint --generate-rcfile > .pylintrc
 	@mkdocs new .
-	@pip-audit
 
 # Format the code
 f:
 	@isort .
-	@black tests
-	@black helio
-	@python scripts/replace_quotes.py
+	@blue .
+	@pylint helio
 
 # Teste the code 
 t:
-	@pytest tests/test_validador.py
+	@pytest .
 
 # Preper project to commit
 c:
 	@isort .
-	@black tests
-	@black helio
-	@pytest -v
-	@prospector --with-tool pydocstyle
-
-branch:
-	@git checkout main
-	@git pull
+	@blue .
