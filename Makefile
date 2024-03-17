@@ -1,5 +1,5 @@
 
-.PHONY: run i f t  c
+.PHONY: run i f t  c git
 
 # Run the projet
 run:
@@ -25,3 +25,7 @@ t:
 c:
 	@isort .
 	@blue .
+
+git:
+	@git chechout main
+	@git pull
